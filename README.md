@@ -39,13 +39,13 @@ described in the
 
 At the top of your sketch you must include the **EventManager** header file
 
-```C
+```
     #include <EventManager.h>
 ```
 
 And then at global scope you should instantiate an **EventManager** object
 
-```C
+```
     EventManager gMyEventManager;
 ```
 
@@ -62,7 +62,8 @@ of these are integer values.  The event code identifies the type of event.  For
 your convenience, `EventManager.h` provides a set of constants you can use to
 identify events
 
-```C
+```
+
     EventManager::kEventKeyPress
     EventManager::kEventKeyRelease
     EventManager::kEventChar
@@ -99,6 +100,7 @@ identify events
     EventManager::kEventUser7
     EventManager::kEventUser8
     EventManager::kEventUser9
+
 ```
 
 These are purely for your convenience; **EventManager** only uses the value to
@@ -110,7 +112,8 @@ to every listener that is associated with that event code.
 
 You post events using the `queueEvent()` function
 
-```C++
+```
+
     gMyEventManager.queueEvent( EventManager::kEventUser0, 1234 );
 ```
 
@@ -126,13 +129,13 @@ value you desire (see [Increase Event Queue Size](#increase-event-queue-size) be
 
 Listeners are functions of type
 
-```C++
     typedef void ( *EventListener )( int eventCode, int eventParam );
-```
+
 
 You add listeners using the `addListener()` function
 
-```C++
+```
+
     void myListener( int eventCode, int eventParam )
     {
         // Do something with the event
@@ -159,7 +162,8 @@ value you desire (see [Increase Listener List Size](#increase-listener-list-size
 To actually process events in the event queue and dispatch them to listeners you
 call the `processEvent()` function
 
-```C++
+```
+
     void loop()
     {
         gMyEventManager.processEvent();
@@ -179,7 +183,8 @@ normally processed in a first-in, first-out fashion (but see the section on
 Here is a simple example illustrating how to blink the LED on pin 13 using
 **EventManager**
 
-```C++
+```
+
     #include <Arduino.h>
     #include <EventManager.h>
 
@@ -243,7 +248,8 @@ priority when you queue the event.  By default, events are considered low
 priority.  You indicate an event is high priority by passing an additional
 constant to `queueEvent()`, like so
 
-```C++
+```
+
     gMyEventManager.queueEvent( EventManager::kEventUser0, 1234, EventManager::kHighPriority );
 ```
 
@@ -284,7 +290,8 @@ might not return until the series of additions to the event queue stops.
 Define `EVENTMANAGER_EVENT_QUEUE_SIZE` to whatever size you need at 
 the very beginning of `EventManager.h` like so
 
-```C++
+```
+
     #ifndef EventManager_h
     #define EventManager_h
 
@@ -312,7 +319,8 @@ maintains two separate queues: a high-priority queue and a low-priority queue.
 Define `EVENTMANAGER_LISTENER_LIST_SIZE` to whatever size you need at 
 the very beginning of `EventManager.h` like so
 
-```C++
+```
+
     #ifndef EventManager_h
     #define EventManager_h
 

@@ -1,4 +1,4 @@
-/*
+/* withinterrupts.ino - event manager example
   This sketch assumes an LED on pin 13 (built-in on Arduino Uno) and
   an LED on pin 8.  It blinks boths LED using timer interrupts.
 
@@ -29,7 +29,6 @@
 
 
 #include <MsTimer2.h>
-
 #include <EventManager.h>
 
 
@@ -68,8 +67,8 @@ void interruptHandler()
 // Our listener will simply toggle the state of the pin
 void listener( int event, int pin )
 {
-    gPins[pin].pinState = gPins[pin].pinState ? false : true;
-    digitalWrite( gPins[pin].pinNbr, gPins[pin].pinState ? HIGH : LOW );
+    gPins[pin].pinState = gPins[pin].pinState ? false : true; // if a 1, return false(0), or vice versa
+    digitalWrite( gPins[pin].pinNbr, gPins[pin].pinState ? HIGH : LOW ); //if a 1, set the pin HIGH
 }
 
 
@@ -77,11 +76,11 @@ void setup()
 {
     // Setup
     Serial.begin( 115200 );
-    pinMode( gPins[0].pinNbr, OUTPUT );
-    pinMode( gPins[1].pinNbr, OUTPUT );
+    pinMode( gPins[0].pinNbr, OUTPUT ); //Pin13
+    pinMode( gPins[1].pinNbr, OUTPUT ); //Pin8
 
     // Add our listener
-    gEM.addListener( EventManager::kEventUser0, listener );
+    gEM.addListener( EventManager::kEventUser0, listener ); //create a listener  
 
     // Set up interrupts every second
     MsTimer2::set( 1000, interruptHandler ); // 1 sec period
